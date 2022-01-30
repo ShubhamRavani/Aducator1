@@ -1,6 +1,6 @@
 {
   "name": "aducator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,5 +21,4 @@
   "dependencies": {
     "express": "^4.17.2"
   }
-  
 }
