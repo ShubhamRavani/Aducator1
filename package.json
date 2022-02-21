@@ -2,11 +2,10 @@
   "name": "aducator",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm-auto-version",
-    "postpublish": "git push origin --tags"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +18,14 @@
   },
   "homepage": "https://github.com/ShubhamRavani/Aducator1#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.8",
+    "nodemon": "^2.0.15",
     "npm-publish-git-tag": "^3.0.4"
   }
 }
