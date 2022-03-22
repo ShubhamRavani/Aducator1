@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 //create schema
-const projectSchema = new mongoose.Schema(
+const publicationSchema = new mongoose.Schema(
     {
         title: { 
             type: String,
-            required: [true, "Project title is required."],
+            required: [true, "Title is required."],
         },
         
         keywords: {
@@ -14,20 +14,21 @@ const projectSchema = new mongoose.Schema(
         },
 
         abstract: {
-            type: String,
-            required: [true, "Abstract/Description is required."],
+            type: String, maxlength: 200,
+            required: [true, "Abstract/Summary is required."],
         },
 
-        languages: {
-            type: Array,
-            required: [true, "Language/Tools are required."],
+        introduction: {
+            type: String,
+            required: [true, "Introduction is required."],
+        },
+
+        conclusion: {
+            type: String,
+            required: [true, "Conclusion is required."]
         },
 
         refrences: {
-            type: Array,
-        },
-
-        screenshot: {
             type: Array,
         },
 
@@ -35,14 +36,12 @@ const projectSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
-
+        
         user: {
             type: mongoose.Schema.Types,ObjectId,
             ref: "User",
             required: [true, "Please Author is required."]
         },
-
-
     },
     { 
         toJSON: {
@@ -54,11 +53,9 @@ const projectSchema = new mongoose.Schema(
         timestamps: true,
     }
 
-
-
 );
 
-//Compile Project schema into model
-const Project = mongoose.model("Project", projectSchema);
+//Compile Publication schema into model
+const Publication = mongoose.model("Publication", publicationSchema);
 
-module.exports = Project;
+module.exports = Publication;
