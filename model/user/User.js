@@ -105,6 +105,21 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+//virtual method to populate created project
+userSchema.virtual("projects", {
+  ref: "Project",
+  foreignField: "user",
+  localField: "_id",
+});
+
+//virtual method to populate created publication
+userSchema.virtual("publications", {
+  ref: "Publication",
+  foreignField: "user",
+  localField: "_id",
+});
+
+
 //Hash password
 
 userSchema.pre("save", async function (next) {

@@ -1,5 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const sgMail = require("@sendgrid/mail");
+const fs = require("fs");
 const crypto = require("crypto");
 const generateToken = require("../../config/token/generateToken");
 const User = require("../../model/user/User");
@@ -59,6 +60,7 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
 //Users
 //-------------------------------
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
+  console.log(req.headers);
   try {
     const users = await User.find({});
     res.json(users);
@@ -70,7 +72,6 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 //Delete user
 //------------------------------
-
 const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   //check if user id is valid
@@ -106,7 +107,7 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
   try {
-    const myProfile = await User.findById(id);
+    const myProfile = await User.findById(id).populate(["projects", "publications"]);
     res.json(myProfile);
   } catch (error) {
     res.json(error);
@@ -389,7 +390,9 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
     },
     { new: true }
   );
-  res.json(foundUser);
+  //remove the saved img
+  fs.unlinkSync(localPath);
+  res.json(imgUploaded);
 });
 
 module.exports = { 

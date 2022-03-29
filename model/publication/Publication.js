@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 //create schema
 const publicationSchema = new mongoose.Schema(
     {
+        publicationlink: { 
+            type: Array,
+            //required: [true, "Publication link is required."],
+        },
+
         title: { 
             type: String,
             required: [true, "Title is required."],
@@ -36,9 +41,21 @@ const publicationSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+
+        isLiked: {
+            type: Boolean,
+            default: false,
+        },
+
+        likes: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "User",
+            },
+        ],
         
         user: {
-            type: mongoose.Schema.Types,ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: [true, "Please Author is required."]
         },

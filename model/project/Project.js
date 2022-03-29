@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 //create schema
 const projectSchema = new mongoose.Schema(
     {
+        projectlink: { 
+            type: Array,
+            //required: [true, "Project link is required."],
+        },
+
         title: { 
             type: String,
             required: [true, "Project title is required."],
@@ -36,12 +41,23 @@ const projectSchema = new mongoose.Schema(
             default: 0,
         },
 
+        isLiked: {
+            type: Boolean,
+            default: false,
+        },
+
+        likes: [
+            {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "User",
+            },
+        ],
+
         user: {
-            type: mongoose.Schema.Types,ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: [true, "Please Author is required."]
         },
-
 
     },
     { 
