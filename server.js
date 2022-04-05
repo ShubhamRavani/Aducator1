@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require("cors");
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const projectRoutes = require("./routes/project/projectRoute");
@@ -9,6 +10,9 @@ const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 
 const app = express();
+//cors
+app.use(cors());
+
 //DB
 dbConnect();
 
