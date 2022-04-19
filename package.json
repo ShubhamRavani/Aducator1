@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ShubhamRavani/Aducator1#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.6.1",
+    "bad-words": "^3.0.4",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
