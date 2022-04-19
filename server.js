@@ -1,14 +1,20 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+const cors = require("cors");
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const projectRoutes = require("./routes/project/projectRoute");
 const publicationRoutes = require("./routes/publication/publicationRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
+const emailMsgRoute = require("./routes/emailMsg/emailMsgRoute");
+const categoryRoute = require("./routes/category/categoryRoute");
 
 const app = express();
+//cors
+app.use(cors());
+
 //DB
 dbConnect();
 
@@ -27,13 +33,17 @@ app.use("/api/publications", publicationRoutes);
 //Comment Route
 app.use("/api/comments", commentRoutes);
 
+//email msg
+app.use("/api/email", emailMsgRoute);
+//category route
+app.use("/api/category", categoryRoute);
+
 //err handler
 app.use(notFound);
 app.use(errorHandler);
 
-
 //server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log(`Server is running ${PORT}`));
 
 //3wlFBGEh7XTcFjfm
