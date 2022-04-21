@@ -33,9 +33,10 @@ app.use("/api/publications", publicationRoutes);
 //Comment Route
 app.use("/api/comments", commentRoutes);
 
-//email msg
+//Email Message Route
 app.use("/api/email", emailMsgRoute);
-//category route
+
+//Category Route
 app.use("/api/category", categoryRoute);
 
 //err handler
