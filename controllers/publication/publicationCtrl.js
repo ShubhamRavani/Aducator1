@@ -1,17 +1,20 @@
 const expressAsyncHandler = require("express-async-handler");
 const Publication = require("../../model/publication/Publication");
 const validateMongodbId = require("../../utils/validateMongodbID");
-const User = require("../../model/user/User");
 
 //----------------------------------------------------------------
 //CREATE PUBLICATION
 //----------------------------------------------------------------
 
 const createPublicationCtrl = expressAsyncHandler(async (req, res) => {
-  validateMongodbId(req.body.user);
+  console.log(req.file);
+  const { _id } = req.user;
   try {
-    const publication = await Publication.create(req.body);
-    res.json(publication);
+    const project = await Project.create({
+      ...req.body,
+      user: _id,
+    });
+    res.json(project);
   } catch (error) {
     res.json(error);
   }
