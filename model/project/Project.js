@@ -32,8 +32,8 @@ const projectSchema = new mongoose.Schema(
             type: Array,
         },
 
-        screenshot: {
-            type: Array,
+        image: {
+            type: String,
         },
 
         viewCount: {
