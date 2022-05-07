@@ -11,10 +11,15 @@ const cloudinaryUploadImg = require("../../utils/cloudinary");
 const createProjectCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file);
   const { _id } = req.user;
+
+  const localPath = `public/images/project/${req.file.filename}`;
+  //2.Upload to cloudinary
+  const imgUploaded = await cloudinaryUploadImg(localPath);
   try {
     const project = await Project.create({
       ...req.body,
       user: _id,
+      image:imgUploaded.url,
     });
     res.json(project);
   } catch (error) {
@@ -144,10 +149,7 @@ const toggleAddLikeToProjectCtrl = expressAsyncHandler(async (req, res) => {
 //   const { id } = req.params;
 //   validateMongodbId(id);
 
-//   //1. Get the oath to img
-//   const localPath = `public/images/screenshot/${req.file.filename}`;
-//   //2.Upload to cloudinary
-//   const imgUploaded = await cloudinaryUploadImg(localPath);
+//   
 
 //   const project = await Project.findById(id);
   
