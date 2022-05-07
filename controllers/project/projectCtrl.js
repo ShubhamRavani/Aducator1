@@ -12,14 +12,10 @@ const createProjectCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file);
   const { _id } = req.user;
 
-  const localPath = `public/images/project/${req.file.filename}`;
-  //2.Upload to cloudinary
-  const imgUploaded = await cloudinaryUploadImg(localPath);
   try {
     const project = await Project.create({
       ...req.body,
       user: _id,
-      image:imgUploaded.url,
     });
     res.json(project);
   } catch (error) {
@@ -31,10 +27,20 @@ const createProjectCtrl = expressAsyncHandler(async (req, res) => {
 //Fetch all projects
 //-------------------------------
 const fetchProjectsCtrl = expressAsyncHandler(async (req, res) => {
+  const hasProjectCategory = req.query.category
   try {
+    if(hasProjectCategory){
+      const projects = await Project.find({category:hasProjectCategory}).populate("user");
+      res.json(projects);
+    }
+    else{
     const projects = await Project.find({}).populate("user");
     res.json(projects);
-  } catch (error) {}
+    }
+    
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 //------------------------------
