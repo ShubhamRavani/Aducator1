@@ -139,29 +139,29 @@ const toggleAddLikeToProjectCtrl = expressAsyncHandler(async (req, res) => {
 //Screen Shot Upload
 //------------------------------
 
-const screenShotUploadCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.user);
-  const { id } = req.params;
-  validateMongodbId(id);
+// const screenShotUploadCtrl = expressAsyncHandler(async (req, res) => {
+//   console.log(req.user);
+//   const { id } = req.params;
+//   validateMongodbId(id);
 
-  //1. Get the oath to img
-  const localPath = `public/images/screenshot/${req.file.filename}`;
-  //2.Upload to cloudinary
-  const imgUploaded = await cloudinaryUploadImg(localPath);
+//   //1. Get the oath to img
+//   const localPath = `public/images/screenshot/${req.file.filename}`;
+//   //2.Upload to cloudinary
+//   const imgUploaded = await cloudinaryUploadImg(localPath);
 
-  const project = await Project.findById(id);
+//   const project = await Project.findById(id);
   
-  await Project.findByIdAndUpdate(
-    id,
-    {
-      screenshot: imgUploaded?.url,
-    },
-    { new: true }
-  );
-  //remove the saved img
-  fs.unlinkSync(localPath);
-  res.json(project);
-});
+//   await Project.findByIdAndUpdate(
+//     id,
+//     {
+//       screenshot: imgUploaded?.url,
+//     },
+//     { new: true }
+//   );
+//   //remove the saved img
+//   fs.unlinkSync(localPath);
+//   res.json(project);
+// });
 
 module.exports = { 
   createProjectCtrl, 
@@ -170,5 +170,4 @@ module.exports = {
   updateProjectCtrl,
   deleteProjectCtrl,
   toggleAddLikeToProjectCtrl,
-  screenShotUploadCtrl
 };

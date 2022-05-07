@@ -6,7 +6,7 @@ const multerStorage = multer.memoryStorage();
 
 //file type checking
 const screenShotUpload = multer({
-    storage,
+    storage:multerStorage,
     limits: { fileSize: 1000000 },
     fileFilter: (req, file, cb) => {
     //check file type
@@ -22,7 +22,7 @@ const screenShotUpload = multer({
     );
   }
 },
-}).array('screenShotUpload', 5);
+})
 
 // const screenShotUpload = multer({
 //   storage: multerStorage,

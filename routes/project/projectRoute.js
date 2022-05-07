@@ -6,7 +6,6 @@ const {
     updateProjectCtrl,
     deleteProjectCtrl,
     toggleAddLikeToProjectCtrl,
-    screenShotUploadCtrl,
 
 } = require("../../controllers/project/projectCtrl");
 
@@ -26,7 +25,7 @@ projectRoute.put(
     authMiddleware,
     screenShotUpload.array("image"),
     screenShotResize,
-    screenShotUploadCtrl
+    
   );
 projectRoute.get("/", fetchProjectsCtrl);
 projectRoute.get("/:id", fetchProjectCtrl);
