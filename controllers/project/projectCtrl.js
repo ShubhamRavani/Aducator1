@@ -12,9 +12,9 @@ const createProjectCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file);
   const { _id } = req.user;
 
-  const localPath = `public/images/project/${req.file.filename}`;
-  //2.Upload to cloudinary
-  const imgUploaded = await cloudinaryUploadImg(localPath);
+  // const localPath = `public/images/project/${req.file.filename}`;
+  // //2.Upload to cloudinary
+  // const imgUploaded = await cloudinaryUploadImg(localPath);
   try {
     const project = await Project.create({
       ...req.body,

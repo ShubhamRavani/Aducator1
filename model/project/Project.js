@@ -7,6 +7,11 @@ const projectSchema = new mongoose.Schema(
             type: Array,
             //required: [true, "Project link is required."],
         },
+        category: {
+          type: String,
+          required: [true, "Post category is required"],
+      
+        },
 
         title: { 
             type: String,
@@ -32,8 +37,8 @@ const projectSchema = new mongoose.Schema(
             type: Array,
         },
 
-        image: {
-            type: String,
+        screenshot: {
+            type: Array,
         },
 
         viewCount: {
