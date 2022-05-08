@@ -7,6 +7,10 @@ const publicationSchema = new mongoose.Schema(
             type: Array,
             //required: [true, "Publication link is required."],
         },
+        category: {
+            type: String,
+            required: [true, "Paper category is required"],
+          },
 
         title: { 
             type: String,
@@ -19,7 +23,7 @@ const publicationSchema = new mongoose.Schema(
         },
 
         abstract: {
-            type: String, maxlength: 200,
+            type: String,
             required: [true, "Abstract/Summary is required."],
         },
 
@@ -34,7 +38,7 @@ const publicationSchema = new mongoose.Schema(
         },
 
         refrences: {
-            type: Array,
+            type: String,
         },
 
         viewCount: {

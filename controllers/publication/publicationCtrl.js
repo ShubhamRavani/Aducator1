@@ -10,7 +10,7 @@ const createPublicationCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file);
   const { _id } = req.user;
   try {
-    const project = await Project.create({
+    const project = await Publication.create({
       ...req.body,
       user: _id,
     });
@@ -24,10 +24,19 @@ const createPublicationCtrl = expressAsyncHandler(async (req, res) => {
 //Fetch all Publication
 //-------------------------------
 const fetchPublicationsCtrl = expressAsyncHandler(async (req, res) => {
+  const hasPaperCategory = req.query.Papercategory
   try {
+    if(hasPaperCategory){
+      const publications = await Publication.find({Papercategory:hasPaperCategory}).populate("user");
+    res.json(publications);
+    }
+    else{
     const publications = await Publication.find({}).populate("user");
     res.json(publications);
-  } catch (error) {}
+    }
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 //------------------------------

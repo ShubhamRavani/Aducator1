@@ -10,6 +10,7 @@ const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const emailMsgRoute = require("./routes/emailMsg/emailMsgRoute");
 const categoryRoute = require("./routes/category/categoryRoute");
+const paperCategory = require('./routes/paperCategory/Papercat')
 
 const app = express();
 //cors
@@ -38,6 +39,9 @@ app.use("/api/email", emailMsgRoute);
 
 //Category Route
 app.use("/api/category", categoryRoute);
+
+//PaperCategory Route
+app.use("/api/paperCategory", paperCategory);
 
 //err handler
 app.use(notFound);
