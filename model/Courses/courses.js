@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 //create schema
-const projectSchema = new mongoose.Schema(
+const courseShema = new mongoose.Schema(
   {
-    projectlink: {
+    courselink: {
       type: String,
       //required: [true, "Project link is required."],
     },
@@ -17,22 +17,11 @@ const projectSchema = new mongoose.Schema(
       required: [true, "Project title is required."],
     },
 
-    keywords: {
+    description: {
       type: String,
+      required: [true, "Description is required."],
     },
-
-    abstract: {
-      type: String,
-      required: [true, "Abstract/Description is required."],
-    },
-
-    languages: {
-      type: String,
-    },
-
-    refrences: {
-      type: String,
-    },
+    
 
     viewCount: {
       type: Number,
@@ -69,14 +58,14 @@ const projectSchema = new mongoose.Schema(
 );
 
 //populate Project Comments
-projectSchema.virtual('projectComment' , {
-  ref:'Comment',
-  foreignField:'project',
-  localField:'_id'
-})
+// projectSchema.virtual('projectComment' , {
+//   ref:'Comment',
+//   foreignField:'project',
+//   localField:'_id'
+// })
 
 
 //Compile Project schema into model
-const Project = mongoose.model("Project", projectSchema);
+const Course = mongoose.model("course", courseShema);
 
-module.exports = Project;
+module.exports = Course;

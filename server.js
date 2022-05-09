@@ -5,12 +5,14 @@ const cors = require("cors");
 const dbConnect = require("./config/db/dbConnect");
 const userRoutes = require("./routes/users/usersRoute");
 const projectRoutes = require("./routes/project/projectRoute");
+const courseRoute = require("./routes/Course/courseRoute")
 const publicationRoutes = require("./routes/publication/publicationRoute");
 const commentRoutes = require("./routes/comments/commentRoute");
 const { errorHandler, notFound } = require("./middlewares/error/errorHandler");
 const emailMsgRoute = require("./routes/emailMsg/emailMsgRoute");
 const categoryRoute = require("./routes/category/categoryRoute");
 const paperCategory = require('./routes/paperCategory/Papercat')
+const courseCategory = require("./routes/courseCategory/courseCat")
 
 const app = express();
 //cors
@@ -28,6 +30,9 @@ app.use("/api/users", userRoutes);
 //Project route
 app.use("/api/projects", projectRoutes);
 
+// Course route
+app.use("/api/course" , courseRoute)
+
 //Publication route
 app.use("/api/publications", publicationRoutes);
 
@@ -42,6 +47,9 @@ app.use("/api/category", categoryRoute);
 
 //PaperCategory Route
 app.use("/api/paperCategory", paperCategory);
+
+//course Categort 
+app.use("/api/courseCategory" , courseCategory)
 
 //err handler
 app.use(notFound);
