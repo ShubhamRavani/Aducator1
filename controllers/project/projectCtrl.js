@@ -30,11 +30,11 @@ const fetchProjectsCtrl = expressAsyncHandler(async (req, res) => {
   const hasProjectCategory = req.query.category
   try {
     if(hasProjectCategory){
-      const projects = await Project.find({category:hasProjectCategory}).populate("user");
+      const projects = await Project.find({category:hasProjectCategory}).populate("user").populate("projectComment");
       res.json(projects);
     }
     else{
-    const projects = await Project.find({}).populate("user");
+    const projects = await Project.find({}).populate("user").populate("projectComment");
     res.json(projects);
     }
     
@@ -51,7 +51,7 @@ const fetchProjectCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
   try {
-    const project = await Project.findById(id).populate("user");
+    const project = await Project.findById(id).populate("user").populate("projectComment");
     //update number of views
     await Project.findByIdAndUpdate(
       id,
@@ -71,7 +71,6 @@ const fetchProjectCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 
 const updateProjectCtrl = expressAsyncHandler(async (req, res) => {
-  console.log(req.user);
   const { id } = req.params;
   validateMongodbId(id);
 

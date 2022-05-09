@@ -9,12 +9,10 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
     //1.Get the user
     const user = req.user;
     //2.Get the project & publication Id
-    const { projectId, publicationId, description } = req.body;
-    console.log(description);
+    const { projectId , description } = req.body;
     try {
       const comment = await Comment.create({
         project: projectId,
-        publication: publicationId,
         user,
         description,
       });

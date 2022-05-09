@@ -70,6 +70,14 @@ const projectSchema = new mongoose.Schema(
   }
 );
 
+//populate Project Comments
+projectSchema.virtual('projectComment' , {
+  ref:'Comment',
+  foreignField:'project',
+  localField:'_id'
+})
+
+
 //Compile Project schema into model
 const Project = mongoose.model("Project", projectSchema);
 

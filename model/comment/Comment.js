@@ -7,11 +7,6 @@ const commentSchema = new mongoose.Schema(
       ref: "Project",
       required: [true, "Project is required"],
     },
-    publication: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Publication",
-        required: [true, "Publication is required"],
-    },
     user: {
       type: Object,
       required: [true, "User is required"],
