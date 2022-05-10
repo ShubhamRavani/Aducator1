@@ -1,17 +1,14 @@
 const expressAsyncHandler = require("express-async-handler");
 const Course = require("../../model/Courses/courses");
 const validateMongodbId = require("../../utils/validateMongodbID");
-const fs = require("fs");
-const cloudinaryUploadImg = require("../../utils/cloudinary");
 
 //----------------------------------------------------------------
-//CREATE PROJECT
+//CREATE PUBLICATION
 //----------------------------------------------------------------
 
-const createProjectCtrl = expressAsyncHandler(async (req, res) => {
+const createPublicationCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.file);
   const { _id } = req.user;
-
   try {
     const project = await Course.create({
       ...req.body,
@@ -24,34 +21,33 @@ const createProjectCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 //-------------------------------
-//Fetch all projects
+//Fetch all Publication
 //-------------------------------
-const fetchProjectsCtrl = expressAsyncHandler(async (req, res) => {
-  const hasCourseCategory = req.query.category
+const fetchPublicationsCtrl = expressAsyncHandler(async (req, res) => {
+  const hasPaperCategory = req.query.Papercategory
   try {
-    if(hasCourseCategory){
-      const projects = await Course.find({category:hasCourseCategory}).populate("user").populate("projectComment");
-      res.json(projects);
+    if(hasPaperCategory){
+      const publications = await Course.find({Papercategory:hasPaperCategory}).populate("user");
+    res.json(publications);
     }
     else{
-    const projects = await Course.find({}).populate("user").populate("projectComment");
-    res.json(projects);
+    const publications = await Course.find({}).populate("user");
+    res.json(publications);
     }
-    
   } catch (error) {
     res.json(error);
   }
 });
 
 //------------------------------
-//Fetch a single project
+//Fetch a single Publication
 //------------------------------
 
-const fetchProjectCtrl = expressAsyncHandler(async (req, res) => {
+const fetchPublicationCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
   try {
-    const project = await Course.findById(id).populate("user").populate("projectComment");
+    const publication = await Course.findById(id).populate("user");
     //update number of views
     await Course.findByIdAndUpdate(
       id,
@@ -60,22 +56,23 @@ const fetchProjectCtrl = expressAsyncHandler(async (req, res) => {
       },
       { new: true }
     );
-    res.json(project);
+    res.json(publication);
   } catch (error) {
     res.json(error);
   }
 });
 
 //------------------------------
-// Update project
+// Update publication
 //------------------------------
 
-const updateProjectCtrl = expressAsyncHandler(async (req, res) => {
+const updatePublicationCtrl = expressAsyncHandler(async (req, res) => {
+  console.log(req.user);
   const { id } = req.params;
   validateMongodbId(id);
 
   try {
-    const project = await Course.findByIdAndUpdate(
+    const publication = await Course.findByIdAndUpdate(
       id,
       {
         ...req.body,
@@ -85,96 +82,73 @@ const updateProjectCtrl = expressAsyncHandler(async (req, res) => {
         new: true,
       }
     );
-    res.json(project);
+    res.json(publication);
   } catch (error) {
     res.json(error);
   }
 });
 
 //------------------------------
-//Delete Project
+//Delete Publication
 //------------------------------
 
-const deleteProjectCtrl = expressAsyncHandler(async (req, res) => {
+const deletePublicationCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongodbId(id);
   try {
-    const project = await Course.findOneAndDelete(id);
-    res.json(project);
+    const publication = await Course.findOneAndDelete(id);
+    res.json(publication);
   } catch (error) {
     res.json(error);
   }
-}); 
+});
 
 //------------------------------
 //Likes
 //------------------------------
 
-const toggleAddLikeToProjectCtrl = expressAsyncHandler(async (req, res) => {
-  //1.Find the project to be liked
-  const { projectId } = req.body;
-  const project = await Course.findById(projectId);
+const toggleAddLikeToPublicationCtrl = expressAsyncHandler(async (req, res) => {
+  //1.Find the publication to be liked
+  const { publicationId } = req.body;
+  const publication = await Course.findById(publicationId);
   //2. Find the login user
   const loginUserId = req?.user?._id;
-  //3. Find is this user has liked this project?
-  const isLiked = project?.isLiked;
+  //3. Find is this user has liked this publication?
+  const isLiked = publication?.isLiked;
   
   //Toggle
-  //4. Remove the user if he has liked the project
+  //4. Remove the user if he has liked the publication
   if (isLiked) {
-    const project = await Course.findByIdAndUpdate(
-      projectId,
+    const publication = await Course.findByIdAndUpdate(
+      publicationId,
       {
         $pull: { likes: loginUserId },
         isLiked: false,
       },
       { new: true }
     );
-    res.json(project);
+    res.json(publication);
   } else {
     //add to likes
-    const project = await Course.findByIdAndUpdate(
-      projectId,
+    const publication = await Course.findByIdAndUpdate(
+      publicationId,
       {
         $push: { likes: loginUserId },
         isLiked: true,
       },
       { new: true }
     );
-    res.json(project);
+    res.json(publication);
   }
 });
 
-//------------------------------
-//Screen Shot Upload
-//------------------------------
-
-// const screenShotUploadCtrl = expressAsyncHandler(async (req, res) => {
-//   console.log(req.user);
-//   const { id } = req.params;
-//   validateMongodbId(id);
-
-//   
-
-//   const project = await Project.findById(id);
-  
-//   await Project.findByIdAndUpdate(
-//     id,
-//     {
-//       screenshot: imgUploaded?.url,
-//     },
-//     { new: true }
-//   );
-//   //remove the saved img
-//   fs.unlinkSync(localPath);
-//   res.json(project);
-// });
 
 module.exports = { 
-  createProjectCtrl, 
-  fetchProjectsCtrl, 
-  fetchProjectCtrl,
-  updateProjectCtrl,
-  deleteProjectCtrl,
-  toggleAddLikeToProjectCtrl,
+  createPublicationCtrl,
+  fetchPublicationsCtrl,
+  fetchPublicationCtrl,
+  updatePublicationCtrl,
+  deletePublicationCtrl,
+  toggleAddLikeToPublicationCtrl,
+  
 };

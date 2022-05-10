@@ -1,11 +1,11 @@
 const express = require("express");
 const { 
-    createProjectCtrl,
-    fetchProjectsCtrl, 
-    fetchProjectCtrl,
-    updateProjectCtrl,
-    deleteProjectCtrl,
-    toggleAddLikeToProjectCtrl,
+  createPublicationCtrl,
+  fetchPublicationsCtrl,
+  fetchPublicationCtrl,
+  updatePublicationCtrl,
+  deletePublicationCtrl,
+  toggleAddLikeToPublicationCtrl,
 
 } = require("../../controllers/Course/courseControl");
 
@@ -18,8 +18,8 @@ const {
     screenShotResize,
   } = require("../../middlewares/uploads/screenShotUpload");
 
-courseRoute.post("/", authMiddleware, createProjectCtrl);
-courseRoute.put("/likes", authMiddleware, toggleAddLikeToProjectCtrl);
+courseRoute.post("/", authMiddleware, createPublicationCtrl);
+courseRoute.put("/likes", authMiddleware, toggleAddLikeToPublicationCtrl);
 courseRoute.put(
     "/screenshot-upload",
     authMiddleware,
@@ -27,10 +27,10 @@ courseRoute.put(
     screenShotResize,
     
   );
-courseRoute.get("/", fetchProjectsCtrl);
-courseRoute.get("/:id", fetchProjectCtrl);
-courseRoute.put("/:id", authMiddleware, updateProjectCtrl);
-courseRoute.delete("/:id", authMiddleware, deleteProjectCtrl);
+courseRoute.get("/", fetchPublicationsCtrl);
+courseRoute.get("/:id", fetchPublicationCtrl);
+courseRoute.put("/:id", authMiddleware, updatePublicationCtrl);
+courseRoute.delete("/:id", authMiddleware, deletePublicationCtrl);
 
 
 module.exports = courseRoute;
