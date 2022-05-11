@@ -127,6 +127,7 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
       lastName: req?.body?.lastName,
       email: req?.body?.email,
       bio: req?.body?.bio,
+      Mobile: req?.body.Mobile,
     },
     {
       new: true,
