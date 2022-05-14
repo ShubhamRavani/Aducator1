@@ -76,6 +76,13 @@ const publicationSchema = new mongoose.Schema(
 
 );
 
+//populate Project Comments
+publicationSchema.virtual('paperComment' , {
+    ref:'PaperComment',
+    foreignField:'paper',
+    localField:'_id'
+  })
+
 //Compile Publication schema into model
 const Publication = mongoose.model("Publication", publicationSchema);
 

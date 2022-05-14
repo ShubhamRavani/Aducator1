@@ -14,6 +14,10 @@ const categoryRoute = require("./routes/category/categoryRoute");
 const paperCategory = require('./routes/paperCategory/Papercat')
 const courseCategory = require("./routes/courseCategory/courseCat")
 
+const PaperComment = require('./routes/comments/paperComment')
+const CourseComment = require('./routes/comments/courseComment')
+
+
 const app = express();
 //cors
 app.use(cors());
@@ -38,6 +42,12 @@ app.use("/api/publications", publicationRoutes);
 
 //Comment Route
 app.use("/api/comments", commentRoutes);
+
+//PaperComment Route
+app.use("/api/papercomments", PaperComment);
+
+//Comment Route
+app.use("/api/coursecomments", CourseComment);
 
 //Email Message Route
 app.use("/api/email", emailMsgRoute);
