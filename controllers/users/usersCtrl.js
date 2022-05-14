@@ -275,14 +275,13 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
     const verificationToken = await user.createAccountVerificationToken();
     //save the user
     await user.save();
-    console.log(verificationToken);
     //build your message
 
     const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
     const msg = {
-      to: "shubhamravani67890@gmail.com",
-      from: "shubham.ravani@adypu.edu.in",
-      subject: "Aducator",
+      to: user?.email,
+      from: "subhojeet567@gmail.com",
+      subject: "ADUCATOR USER VERIFICATION",
       html: resetURL,
     };
 

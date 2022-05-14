@@ -9,7 +9,7 @@ const {
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const courseCategory = express.Router();
 
-courseCategory.post("/", authMiddleware, createCategoryCtrl);
+courseCategory.post("/", createCategoryCtrl);
 courseCategory.get("/", authMiddleware, fetchCategoriesCtrl);
 courseCategory.get("/:id", authMiddleware, fetchCategoryCtrl);
 courseCategory.put("/:id", authMiddleware, updateCategoryCtrl);

@@ -9,7 +9,7 @@ const {
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 const paperCategory = express.Router();
 
-paperCategory.post("/", authMiddleware, createCategoryCtrl);
+paperCategory.post("/", createCategoryCtrl);
 paperCategory.get("/", authMiddleware, fetchCategoriesCtrl);
 paperCategory.get("/:id", authMiddleware, fetchCategoryCtrl);
 paperCategory.put("/:id", authMiddleware, updateCategoryCtrl);
