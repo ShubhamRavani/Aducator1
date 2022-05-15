@@ -27,11 +27,11 @@ const fetchPublicationsCtrl = expressAsyncHandler(async (req, res) => {
   const hasPaperCategory = req.query.Papercategory
   try {
     if(hasPaperCategory){
-      const publications = await Publication.find({Papercategory:hasPaperCategory}).populate("user");
+      const publications = await Publication.find({Papercategory:hasPaperCategory}).populate("user").sort('-createdAt');
     res.json(publications);
     }
     else{
-    const publications = await Publication.find({}).populate("user");
+    const publications = await Publication.find({}).populate("user").sort('-createdAt');
     res.json(publications);
     }
   } catch (error) {

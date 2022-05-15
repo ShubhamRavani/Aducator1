@@ -300,7 +300,7 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
     const resetURL = `If you were requested to verify your account, verify now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify your account</a>`;
     const msg = {
       to: user?.email,
-      from: "subhojeet567@gmail.com",
+      from: "shubham.ravani@adypu.edu.in",
       subject: "ADUCATOR USER VERIFICATION",
       html: resetURL,
     };
@@ -356,7 +356,7 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
     const resetURL = `If you were requested to reset your password, reset now within 10 minutes, otherwise ignore this message <a href="http://localhost:3000/reset-password/${token}">Click to Reset</a>`;
     const msg = {
       to: email,
-      from: "subhojeet567@gmail.com",
+      from: "shubham.ravani@adypu.edu.in",
       subject: "Reset Password",
       html: resetURL,
     };
