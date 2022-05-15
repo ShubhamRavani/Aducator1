@@ -30,11 +30,11 @@ const fetchProjectsCtrl = expressAsyncHandler(async (req, res) => {
   const hasProjectCategory = req.query.category
   try {
     if(hasProjectCategory){
-      const projects = await Project.find({category:hasProjectCategory}).populate("user").populate("projectComment");
+      const projects = await Project.find({category:hasProjectCategory}).populate("user").populate("projectComment").sort('-createdAt');
       res.json(projects);
     }
     else{
-    const projects = await Project.find({}).populate("user").populate("projectComment");
+    const projects = await Project.find({}).populate("user").populate("projectComment").sort('-createdAt');
     res.json(projects);
     }
     
