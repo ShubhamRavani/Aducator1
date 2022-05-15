@@ -111,39 +111,91 @@ const deleteProjectCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 
 const toggleAddLikeToProjectCtrl = expressAsyncHandler(async (req, res) => {
-  //1.Find the project to be liked
-  const { projectId } = req.body;
-  const project = await Project.findById(projectId);
+  //1.Find the post to be liked
+  const { postId } = req.body;
+  const post = await Project.findById(postId);
   //2. Find the login user
   const loginUserId = req?.user?._id;
-  //3. Find is this user has liked this project?
-  const isLiked = project?.isLiked;
-  
+  //3. Find is this user has liked this post?
+  const isLiked = post?.isLiked;
+  //4.Chech if this user has dislikes this post
+  const alreadyDisliked = post?.disLikes?.find(
+    userId => userId?.toString() === loginUserId?.toString()
+  );
+  //5.remove the user from dislikes array if exists
+  if (alreadyDisliked) {
+    const post = await Project.findByIdAndUpdate(
+      postId,
+      {
+        $pull: { disLikes: loginUserId },
+        isDisLiked: false,
+      },
+      { new: true }
+    );
+    res.json(post);
+  }
   //Toggle
-  //4. Remove the user if he has liked the project
+  //Remove the user if he has liked the post
   if (isLiked) {
-    const project = await Project.findByIdAndUpdate(
-      projectId,
+    const post = await Project.findByIdAndUpdate(
+      postId,
       {
         $pull: { likes: loginUserId },
         isLiked: false,
       },
       { new: true }
     );
-    res.json(project);
+    res.json(post);
   } else {
     //add to likes
-    const project = await Project.findByIdAndUpdate(
-      projectId,
+    const post = await Project.findByIdAndUpdate(
+      postId,
       {
         $push: { likes: loginUserId },
         isLiked: true,
       },
       { new: true }
     );
-    res.json(project);
+    res.json(post);
   }
 });
+
+// ------------------------------------
+
+// const toggleAddLikeToProjectCtrl = expressAsyncHandler(async (req, res) => {
+//   //1.Find the project to be liked
+//   const { projectId } = req.body;
+//   const project = await Project.findById(projectId);
+//   //2. Find the login user
+//   const loginUserId = req?.user?._id;
+//   //3. Find is this user has liked this project?
+//   const isLiked = project?.isLiked;
+  
+//   //Toggle
+//   //4. Remove the user if he has liked the project
+//   if (isLiked) {
+//     const project = await Project.findByIdAndUpdate(
+//       projectId,
+//       {
+//         $pull: { likes: loginUserId },
+//         isLiked: false,
+//       },
+//       { new: true }
+//     );
+//     res.json(project);
+//   } else {
+//     //add to likes
+//     const project = await Project.findByIdAndUpdate(
+//       projectId,
+//       {
+//         $push: { likes: loginUserId },
+//         isLiked: true,
+//       },
+//       { new: true }
+//     );
+//     res.json(project);
+//   }
+// });
 
 //------------------------------
 //Screen Shot Upload

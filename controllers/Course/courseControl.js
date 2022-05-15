@@ -108,40 +108,54 @@ const deletePublicationCtrl = expressAsyncHandler(async (req, res) => {
 //------------------------------
 
 const toggleAddLikeToPublicationCtrl = expressAsyncHandler(async (req, res) => {
-  //1.Find the publication to be liked
-  const { publicationId } = req.body;
-  const publication = await Course.findById(publicationId);
+  //1.Find the post to be liked
+  const { postId } = req.body;
+  const post = await Course.findById(postId);
   //2. Find the login user
   const loginUserId = req?.user?._id;
-  //3. Find is this user has liked this publication?
-  const isLiked = publication?.isLiked;
-  
+  //3. Find is this user has liked this post?
+  const isLiked = post?.isLiked;
+  //4.Chech if this user has dislikes this post
+  const alreadyDisliked = post?.disLikes?.find(
+    userId => userId?.toString() === loginUserId?.toString()
+  );
+  //5.remove the user from dislikes array if exists
+  if (alreadyDisliked) {
+    const post = await Course.findByIdAndUpdate(
+      postId,
+      {
+        $pull: { disLikes: loginUserId },
+        isDisLiked: false,
+      },
+      { new: true }
+    );
+    res.json(post);
+  }
   //Toggle
-  //4. Remove the user if he has liked the publication
+  //Remove the user if he has liked the post
   if (isLiked) {
-    const publication = await Course.findByIdAndUpdate(
-      publicationId,
+    const post = await Course.findByIdAndUpdate(
+      postId,
       {
         $pull: { likes: loginUserId },
         isLiked: false,
       },
       { new: true }
     );
-    res.json(publication);
+    res.json(post);
   } else {
     //add to likes
-    const publication = await Course.findByIdAndUpdate(
-      publicationId,
+    const post = await Course.findByIdAndUpdate(
+      postId,
       {
         $push: { likes: loginUserId },
         isLiked: true,
       },
       { new: true }
     );
-    res.json(publication);
+    res.json(post);
   }
 });
-
 
 module.exports = { 
   createPublicationCtrl,
