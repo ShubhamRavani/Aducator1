@@ -6,7 +6,7 @@ const generateToken = require("../../config/token/generateToken");
 const User = require("../../model/user/User");
 const validateMongodbId = require("../../utils/validateMongodbID");
 const cloudinaryUploadImg = require("../../utils/cloudinary");
-sgMail.setApiKey(process.env.SEND_GRID_API_KEY)
+sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
 //-------------------------------------
 //Register
@@ -31,8 +31,9 @@ const userRegisterCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //-------------------------------
-//Login user
+//Login User
 //-------------------------------
 
 const loginUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -60,9 +61,11 @@ const loginUserCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
 //Users
 //-------------------------------
+
 const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.find({});
@@ -72,9 +75,11 @@ const fetchUsersCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//Delete user
+//Delete User
 //------------------------------
+
 const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   //check if user id is valid
@@ -87,9 +92,11 @@ const deleteUsersCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //----------------
-//user details
+//User Details
 //----------------
+
 const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   //check if user id is valid
@@ -102,8 +109,9 @@ const fetchUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//User profile
+//User Profile
 //------------------------------
 
 const userProfileCtrl = expressAsyncHandler(async (req, res) => {
@@ -117,9 +125,11 @@ const userProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//Update profile
+//Update Profile
 //------------------------------
+
 const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   validateMongodbId(_id);
@@ -140,8 +150,9 @@ const updateUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+
 //------------------------------
-//Update password
+//Update Password
 //------------------------------
 
 const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
@@ -161,8 +172,9 @@ const updateUserPasswordCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//following
+//Following
 //------------------------------
 
 const followingUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -201,8 +213,9 @@ const followingUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json("You have successfully followed this user");
 });
 
+
 //------------------------------
-//unfollow
+//Unfollow
 //------------------------------
 
 const unfollowUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -229,8 +242,9 @@ const unfollowUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json("You have successfully unfollowed this user");
 });
 
+
 //------------------------------
-//Block user
+//Block User
 //------------------------------
 
 const blockUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -247,8 +261,9 @@ const blockUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+
 //------------------------------
-//UnBlock user
+//Unblock User
 //------------------------------
 
 const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
@@ -265,9 +280,11 @@ const unBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+
 //------------------------------
-// Generate Email verification token
+// Generate Email Verification Token
 //------------------------------
+
 const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.user.id;
 
@@ -295,9 +312,11 @@ const generateVerificationTokenCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//Account verification
+//Account Verification
 //------------------------------
+
 const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   const { token } = req.body;
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -315,8 +334,9 @@ const accountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   res.json(userFound);
 });
 
+
 //------------------------------
-//Forget token generator
+//Forget Token Generator
 //------------------------------
 
 const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
@@ -350,8 +370,9 @@ const forgetPasswordToken = expressAsyncHandler(async (req, res) => {
   }
 });
 
+
 //------------------------------
-//Password reset
+//Password Reset
 //------------------------------
 
 const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
@@ -373,8 +394,9 @@ const passwordResetCtrl = expressAsyncHandler(async (req, res) => {
   res.json(user);
 });
 
+
 //------------------------------
-//Profile photo upload
+//Profile Photo Upload
 //------------------------------
 
 const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
@@ -397,6 +419,7 @@ const profilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
   fs.unlinkSync(localPath);
   res.json(imgUploaded);
 });
+
 
 module.exports = { 
   profilePhotoUploadCtrl,
