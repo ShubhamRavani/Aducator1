@@ -5,6 +5,14 @@ const courseShema = new mongoose.Schema(
   {
     courselink: {
       type: String,
+      required: [true, "Course link is required."],
+    },
+    courselink1: {
+      type: String,
+      //required: [true, "Project link is required."],
+    },
+    courselink2: {
+      type: String,
       //required: [true, "Project link is required."],
     },
     category: {

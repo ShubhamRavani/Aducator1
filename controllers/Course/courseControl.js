@@ -24,10 +24,10 @@ const createPublicationCtrl = expressAsyncHandler(async (req, res) => {
 //Fetch all Publication
 //-------------------------------
 const fetchPublicationsCtrl = expressAsyncHandler(async (req, res) => {
-  const hasPaperCategory = req.query.Papercategory
+  const hasPaperCategory = req.query.category
   try {
     if(hasPaperCategory){
-      const publications = await Course.find({Papercategory:hasPaperCategory}).populate("user").sort('-createdAt');
+      const publications = await Course.find({category:hasPaperCategory}).populate("user").sort('-createdAt');
     res.json(publications);
     }
     else{
