@@ -65,10 +65,10 @@ const courseShema = new mongoose.Schema(
   }
 );
 
-//populate Project Comments
-// projectSchema.virtual('projectComment' , {
-//   ref:'Comment',
-//   foreignField:'project',
+// // populate Course Comments
+// courseShema.virtual('courseComment' , {
+//   ref:'CourseComment',
+//   foreignField:'course',
 //   localField:'_id'
 // })
 

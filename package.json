@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node":"v16.15.0"
+  },
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js"

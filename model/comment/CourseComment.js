@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const CourseCommentSchema = new mongoose.Schema(
   {
-    paper: {
+    course: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "courses",
       required: [true, "Course is required"],
