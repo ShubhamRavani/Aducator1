@@ -17,9 +17,14 @@ const publicationSchema = new mongoose.Schema(
             required: [true, "Title is required."],
         },
         
-        keywords: {
-            type: Array,
-            required: [true, "Keywords are required."], 
+        keyword: {
+            type: String,
+             
+        },
+
+        Authors: {
+            type: String,
+            required: [true, "Title is required."],
         },
 
         abstract: {
