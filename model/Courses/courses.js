@@ -9,11 +9,9 @@ const courseShema = new mongoose.Schema(
     },
     courselink1: {
       type: String,
-      //required: [true, "Project link is required."],
     },
     courselink2: {
       type: String,
-      //required: [true, "Project link is required."],
     },
     category: {
       type: String,
@@ -29,7 +27,6 @@ const courseShema = new mongoose.Schema(
       type: String,
       required: [true, "Description is required."],
     },
-    
 
     viewCount: {
       type: Number,
@@ -64,13 +61,6 @@ const courseShema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-// // populate Course Comments
-// courseShema.virtual('courseComment' , {
-//   ref:'CourseComment',
-//   foreignField:'course',
-//   localField:'_id'
-// })
 
 
 //Compile Project schema into model

@@ -19,6 +19,6 @@ const paperCommentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Comment = mongoose.model("paperComment", paperCommentSchema);
+const PaperComment = mongoose.model("paperComment", paperCommentSchema);
 
-module.exports = Comment;
+module.exports = PaperComment;
