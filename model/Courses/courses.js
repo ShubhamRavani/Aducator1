@@ -62,6 +62,12 @@ const courseShema = new mongoose.Schema(
   }
 );
 
+//populate Course Project Comments
+projectSchema.virtual('courseComment' , {
+  ref:'CourseComment',
+  foreignField:'course',
+  localField:'_id'
+})
 
 //Compile Project schema into model
 const Course = mongoose.model("course", courseShema);
