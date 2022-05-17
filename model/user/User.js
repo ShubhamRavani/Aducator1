@@ -122,6 +122,12 @@ userSchema.virtual("publications", {
   localField: "_id",
 });
 
+//virtual method to populate created course
+userSchema.virtual("course", {
+  ref: "Course",
+  foreignField: "user",
+  localField: "_id",
+});
 
 //Hash password
 
