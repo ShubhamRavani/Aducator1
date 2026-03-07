@@ -1,18 +1,19 @@
 const express = require("express");
 const {
-  createCommentCtrl,
-  fetchAllCommentsCtrl,
-  fetchCommentCtrl,
-  updateCommentCtrl,
-  deleteCommentCtrl,
+  createCourseCommentCtrl,
+  fetchAllCourseCommentsCtrl,
+  fetchCourseCommentCtrl,
+  updateCourseCommentCtrl,
+  deleteCourseCommentCtrl,
 } = require("../../controllers/comments/CourseCommentCrt");
 const authMiddleware = require("../../middlewares/auth/authMiddleware");
 
-const CourseComment = express.Router();
+const courseComment = express.Router();
 
-CourseComment.post("/", authMiddleware, createCommentCtrl);
-CourseComment.get("/", authMiddleware, fetchAllCommentsCtrl);
-CourseComment.get("/:id", authMiddleware, fetchCommentCtrl);
-CourseComment.put("/:id", authMiddleware, updateCommentCtrl);
-CourseComment.delete("/:id", authMiddleware, deleteCommentCtrl);
-module.exports = CourseComment;
+courseComment.post("/", authMiddleware, createCourseCommentCtrl);
+courseComment.get("/", authMiddleware, fetchAllCourseCommentsCtrl);
+courseComment.get("/:id", authMiddleware, fetchCourseCommentCtrl);
+courseComment.put("/:id", authMiddleware, updateCourseCommentCtrl);
+courseComment.delete("/:id", authMiddleware, deleteCourseCommentCtrl);
+
+module.exports = courseComment;

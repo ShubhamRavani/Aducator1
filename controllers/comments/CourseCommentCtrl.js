@@ -1,18 +1,18 @@
 const expressAsyncHandler = require("express-async-handler");
-const Comment = require("../../model/comment/CourseComment");
+const CourseComment = require("../../model/comment/CourseComment");
 const validateMongodbId = require("../../utils/validateMongodbID");
 
 //-------------------------------------------------------------
 //Create
 //-------------------------------------------------------------
-const createCommentCtrl = expressAsyncHandler(async (req, res) => {
+const createCourseCommentCtrl = expressAsyncHandler(async (req, res) => {
     //1.Get the user
     const user = req.user;
     //2.Get the project & publication Id
     const { projectId , description } = req.body;
     try {
-      const comment = await Comment.create({
-        project: projectId,
+      const comment = await CourseComment.create({
+        course: projectId,
         user,
         description,
       });
@@ -26,9 +26,9 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   //fetch all comments
   //-------------------------------
   
-  const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
+  const fetchAllCourseCommentsCtrl = expressAsyncHandler(async (req, res) => {
     try {
-      const comments = await Comment.find({}).sort("-created");
+      const comments = await CourseComment.find({}).sort("-created");
       res.json(comments);
     } catch (error) {
       res.json(error);
@@ -38,11 +38,11 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   //------------------------------
   //comment details
   //------------------------------
-  const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const fetchCourseCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const comment = await Comment.findById(id);
+      const comment = await CourseComment.findById(id);
       res.json(comment);
     } catch (error) {
       res.json(error);
@@ -53,15 +53,14 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   //Update
   //------------------------------
   
-  const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const updateCourseCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const update = await Comment.findByIdAndUpdate(
+      const update = await CourseComment.findByIdAndUpdate(
         id,
         {
-          project: req.body?.projectId,
-          publication: req.body?.publicationId,
+          course: req.body?.projectId,
           user: req?.user,
           description: req?.body?.description,
         },
@@ -80,11 +79,11 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   //delete
   //------------------------------
   
-  const deleteCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const deleteCourseCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const comment = await Comment.findByIdAndDelete(id);
+      const comment = await CourseComment.findByIdAndDelete(id);
       res.json(comment);
     } catch (error) {
       res.json(error);
@@ -92,10 +91,10 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   module.exports = {
-    deleteCommentCtrl,
-    updateCommentCtrl,
-    createCommentCtrl,
-    fetchAllCommentsCtrl,
-    fetchCommentCtrl,
+    createCourseCommentCtrl,
+    fetchAllCourseCommentsCtrl,
+    fetchCourseCommentCtrl,
+    updateCourseCommentCtrl,
+    deleteCourseCommentCtrl,
   };
   

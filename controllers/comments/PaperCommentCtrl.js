@@ -1,18 +1,18 @@
 const expressAsyncHandler = require("express-async-handler");
-const Comment = require("../../model/PaperComment/PaperComment");
+const PaperComment = require("../../model/PaperComment/PaperComment");
 const validateMongodbId = require("../../utils/validateMongodbID");
 
 //-------------------------------------------------------------
 //Create
 //-------------------------------------------------------------
-const createCommentCtrl = expressAsyncHandler(async (req, res) => {
+const createPaperCommentCtrl = expressAsyncHandler(async (req, res) => {
     //1.Get the user
     const user = req.user;
     //2.Get the project & publication Id
     const { paperId , description } = req.body;
     try {
-      const comment = await Comment.create({
-        project: paperId,
+      const comment = await PaperComment.create({
+        paper: paperId,
         user,
         description,
       });
@@ -23,12 +23,12 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   //-------------------------------
-  //fetch all comments
+  //fetch all Paper Comments
   //-------------------------------
   
-  const fetchAllCommentsCtrl = expressAsyncHandler(async (req, res) => {
+  const fetchAllPaperCommentsCtrl = expressAsyncHandler(async (req, res) => {
     try {
-      const comments = await Comment.find({}).sort("-created");
+      const comments = await PaperComment.find({}).sort("-created");
       res.json(comments);
     } catch (error) {
       res.json(error);
@@ -36,13 +36,13 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   //------------------------------
-  //comment details
+  //Paper Comment Details
   //------------------------------
-  const fetchCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const fetchPaperCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const comment = await Comment.findById(id);
+      const comment = await PaperComment.findById(id);
       res.json(comment);
     } catch (error) {
       res.json(error);
@@ -50,18 +50,17 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   //------------------------------
-  //Update
+  //Update Paper Comment
   //------------------------------
   
-  const updateCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const updatePaperCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const update = await Comment.findByIdAndUpdate(
+      const update = await PaperComment.findByIdAndUpdate(
         id,
         {
-          project: req.body?.projectId,
-          publication: req.body?.publicationId,
+          paper: req.body?.paperId,
           user: req?.user,
           description: req?.body?.description,
         },
@@ -77,14 +76,14 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   //------------------------------
-  //delete
+  //Delete Paper Comment
   //------------------------------
   
-  const deleteCommentCtrl = expressAsyncHandler(async (req, res) => {
+  const deletePaperCommentCtrl = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-      const comment = await Comment.findByIdAndDelete(id);
+      const comment = await PaperComment.findByIdAndDelete(id);
       res.json(comment);
     } catch (error) {
       res.json(error);
@@ -92,10 +91,10 @@ const createCommentCtrl = expressAsyncHandler(async (req, res) => {
   });
   
   module.exports = {
-    deleteCommentCtrl,
-    updateCommentCtrl,
-    createCommentCtrl,
-    fetchAllCommentsCtrl,
-    fetchCommentCtrl,
+    deletePaperCommentCtrl,
+    updatePaperCommentCtrl,
+    createPaperCommentCtrl,
+    fetchAllPaperCommentsCtrl,
+    fetchPaperCommentCtrl,
   };
   

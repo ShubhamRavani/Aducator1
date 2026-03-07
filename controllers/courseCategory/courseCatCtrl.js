@@ -19,7 +19,7 @@ const createCategoryCtrl = expressAsyncHandler(async (req, res) => {
 
 
 //----------------------------------------------------------------
-//fetch all Category
+//Fetch all Category
 //----------------------------------------------------------------
 
 const fetchCategoriesCtrl = expressAsyncHandler(async (req, res) => {
@@ -35,7 +35,7 @@ const fetchCategoriesCtrl = expressAsyncHandler(async (req, res) => {
 
 
 //----------------------------------------------------------------
-//fetch a single category
+//Fetch a Single Category
 //----------------------------------------------------------------
 
 const fetchCategoryCtrl = expressAsyncHandler(async (req, res) => {
